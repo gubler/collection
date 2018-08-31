@@ -1,0 +1,37 @@
+{
+  "name": "gubler/collection",
+  "description": "Fork of Laravel's Collections.",
+  "keywords": ["library", "collection"],
+  "license": "MIT",
+  "homepage": "https://github.com/gubler/collection",
+  "support": {
+    "issues": "https://github.com/gubler/collection/issues",
+    "source": "https://github.com/gubler/collection"
+  },
+  "require": {
+    "php": "^7.1.3",
+    "symfony/var-dumper": "^4.1"
+  },
+  "conflict": {
+    "illuminate/support": "*"
+  },
+  "require-dev": {
+    "mockery/mockery": "^1.1",
+    "phpunit/phpunit": "^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Gubler\\Collection\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Gubler\\Tests\\Collection\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
