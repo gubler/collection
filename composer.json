@@ -12,9 +12,6 @@
     "php": "^7.1.3",
     "symfony/var-dumper": "^4.1"
   },
-  "conflict": {
-    "illuminate/support": "*"
-  },
   "require-dev": {
     "mockery/mockery": "^1.1",
     "phpunit/phpunit": "^7.0"
