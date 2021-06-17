@@ -1119,7 +1119,7 @@ class CollectionTest extends TestCase
         $data = new Collection([1, 2, 3, 4, 5, 6]);
 
         $random = $data->random();
-        $this->assertInternalType('integer', $random);
+        $this->assertIsInt($random);
         $this->assertContains($random, $data->all());
 
         $random = $data->random(0);
@@ -1437,7 +1437,7 @@ class CollectionTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $groups);
         $this->assertEquals(['A' => [1], 'B' => [2, 4], 'C' => [3]], $groups->toArray());
-        $this->assertInternalType('array', $groups['A']);
+        $this->assertIsArray($groups['A']);
     }
 
     public function testMapToDictionaryWithNumericKeys()
@@ -2235,11 +2235,9 @@ class CollectionTest extends TestCase
         }));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testRandomThrowsAnExceptionUsingAmountBiggerThanCollectionSize()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $data = new Collection([1, 2, 3]);
         $data->random(4);
     }

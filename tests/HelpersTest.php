@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class HelpersTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
     }
@@ -338,11 +338,9 @@ class HelpersTest extends TestCase
             Helper::class_uses_recursive(SupportTestClassThree::class));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testThrow()
     {
+        $this->expectException(RuntimeException::class);
         Helper::throw_if(true, new RuntimeException);
     }
 
@@ -351,12 +349,10 @@ class HelpersTest extends TestCase
         $this->assertSame('foo', Helper::throw_unless('foo', new RuntimeException));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Test Message
-     */
     public function testThrowWithString()
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Test Message');
         Helper::throw_if(true, RuntimeException::class, 'Test Message');
     }
 
