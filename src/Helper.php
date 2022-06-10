@@ -12,9 +12,6 @@ class Helper
 {
     /**
      * Assign high numeric IDs to a config item to force appending.
-     *
-     * @param  array  $array
-     * @return array
      */
     public static function append_config(array $array): array
     {
@@ -33,11 +30,8 @@ class Helper
 
     /**
      * Determine if the given value is "blank".
-     *
-     * @param  mixed  $value
-     * @return bool
      */
-    public static function blank($value)
+    public static function blank(mixed $value): bool
     {
         if (\is_null($value)) {
             return true;
@@ -60,11 +54,8 @@ class Helper
 
     /**
      * Get the class "basename" of the given object / class.
-     *
-     * @param  string|object  $class
-     * @return string
      */
-    public static function class_basename($class)
+    public static function class_basename(string|object $class): string
     {
         $class = \is_object($class) ? \get_class($class) : $class;
 
@@ -73,11 +64,8 @@ class Helper
 
     /**
      * Returns all traits used by a class, its parent classes and trait of their traits.
-     *
-     * @param  object|string  $class
-     * @return array
      */
-    public static function class_uses_recursive($class)
+    public static function class_uses_recursive(object|string $class): array
     {
         if (\is_object($class)) {
             $class = \get_class($class);
@@ -94,26 +82,16 @@ class Helper
 
     /**
      * Fill in data where it's missing.
-     *
-     * @param  mixed   $target
-     * @param  string|array  $key
-     * @param  mixed  $value
-     * @return mixed
      */
-    public static function data_fill(&$target, $key, $value)
+    public static function data_fill(mixed &$target, array|string $key, mixed $value): mixed
     {
         return self::data_set($target, $key, $value, false);
     }
 
     /**
      * Get an item from an array or object using "dot" notation.
-     *
-     * @param  mixed   $target
-     * @param  string|array  $key
-     * @param  mixed   $default
-     * @return mixed
      */
-    public static function data_get($target, $key, $default = null)
+    public static function data_get(mixed $target, null|array|string $key, mixed $default = null): mixed
     {
         if (\is_null($key)) {
             return $target;
@@ -148,14 +126,8 @@ class Helper
 
     /**
      * Set an item on an array or object using dot notation.
-     *
-     * @param  mixed  $target
-     * @param  string|array  $key
-     * @param  mixed  $value
-     * @param  bool  $overwrite
-     * @return mixed
      */
-    public static function data_set(&$target, $key, $value, $overwrite = true)
+    public static function data_set(mixed &$target, array|string $key, mixed $value, bool $overwrite = true): mixed
     {
         $segments = \is_array($key) ? $key : explode('.', $key);
 
@@ -208,46 +180,32 @@ class Helper
 
     /**
      * Determine if a value is "filled".
-     *
-     * @param  mixed  $value
-     * @return bool
      */
-    public static function filled($value)
+    public static function filled(mixed $value): bool
     {
         return ! self::blank($value);
     }
 
     /**
      * Get the first element of an array. Useful for method chaining.
-     *
-     * @param  array  $array
-     * @return mixed
      */
-    public static function head($array)
+    public static function head(array $array): mixed
     {
         return reset($array);
     }
 
     /**
      * Get the last element from an array.
-     *
-     * @param  array  $array
-     * @return mixed
      */
-    public static function last($array)
+    public static function last(array $array): mixed
     {
         return end($array);
     }
 
     /**
      * Get an item from an object using "dot" notation.
-     *
-     * @param  object  $object
-     * @param  string  $key
-     * @param  mixed   $default
-     * @return mixed
      */
-    public static function object_get($object, $key, $default = null)
+    public static function object_get(object $object, ?string $key, mixed $default = null): mixed
     {
         if (\is_null($key) || trim($key) === '') {
             return $object;
@@ -266,15 +224,10 @@ class Helper
 
     /**
      * Replace a given pattern with each value in the array in sequentially.
-     *
-     * @param  string  $pattern
-     * @param  array   $replacements
-     * @param  string  $subject
-     * @return string
      */
-    public static function preg_replace_array($pattern, array $replacements, $subject)
+    public static function preg_replace_array(string $pattern, array $replacements, string $subject): string
     {
-        return preg_replace_callback($pattern, function () use (&$replacements) {
+        return preg_replace_callback($pattern, static function() use (&$replacements) {
             foreach ($replacements as $key => $value) {
                 return array_shift($replacements);
             }
@@ -283,15 +236,8 @@ class Helper
 
     /**
      * Retry an operation a given number of times.
-     *
-     * @param  int  $times
-     * @param  callable  $callback
-     * @param  int  $sleep
-     * @return mixed
-     *
-     * @throws \Exception
      */
-    public static function retry($times, callable $callback, $sleep = 0)
+    public static function retry(int $times, callable $callback, int $sleep = 0): mixed
     {
         $times--;
 
@@ -315,14 +261,8 @@ class Helper
 
     /**
      * Throw the given exception if the given condition is true.
-     *
-     * @param  mixed  $condition
-     * @param  \Throwable|string  $exception
-     * @param  array  ...$parameters
-     * @return mixed
-     * @throws \Throwable
      */
-    public static function throw_if($condition, $exception, ...$parameters)
+    public static function throw_if(mixed $condition, \Throwable|string $exception, ...$parameters): mixed
     {
         if ($condition) {
             throw (\is_string($exception) ? new $exception(...$parameters) : $exception);
@@ -333,14 +273,8 @@ class Helper
 
     /**
      * Throw the given exception unless the given condition is true.
-     *
-     * @param  mixed  $condition
-     * @param  \Throwable|string  $exception
-     * @param  array  ...$parameters
-     * @return mixed
-     * @throws \Throwable
      */
-    public static function throw_unless($condition, $exception, ...$parameters)
+    public static function throw_unless(mixed $condition, \Throwable|string $exception, ...$parameters): mixed
     {
         if (! $condition) {
             throw (\is_string($exception) ? new $exception(...$parameters) : $exception);
@@ -351,11 +285,8 @@ class Helper
 
     /**
      * Returns all traits used by a trait and its traits.
-     *
-     * @param  string  $trait
-     * @return array
      */
-    public static function trait_uses_recursive($trait)
+    public static function trait_uses_recursive(string $trait): array
     {
         $traits = class_uses($trait);
 
@@ -368,13 +299,8 @@ class Helper
 
     /**
      * Transform the given value if it is present.
-     *
-     * @param  mixed  $value
-     * @param  callable  $callback
-     * @param  mixed  $default
-     * @return mixed|null
      */
-    public static function transform($value, callable $callback, $default = null)
+    public static function transform(mixed $value, callable $callback, mixed $default = null): mixed
     {
         if (self::filled($value)) {
             return $callback($value);
@@ -389,23 +315,16 @@ class Helper
 
     /**
      * Return the default value of the given value.
-     *
-     * @param  mixed  $value
-     * @return mixed
      */
-    public static function value($value)
+    public static function value(mixed $value): mixed
     {
         return $value instanceof \Closure ? $value() : $value;
     }
 
     /**
      * Return the given value, optionally passed through the given callback.
-     *
-     * @param  mixed  $value
-     * @param  callable|null  $callback
-     * @return mixed
      */
-    public static function with($value, callable $callback = null)
+    public static function with(mixed $value, ?callable $callback = null): mixed
     {
         return \is_null($callback) ? $value : $callback($value);
     }

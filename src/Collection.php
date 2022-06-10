@@ -846,7 +846,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param  string  $glue
      * @return string
      */
-    public function implode($value, $glue = null)
+    public function implode($value, $glue = '')
     {
         $first = $this->first();
 
